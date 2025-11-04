@@ -1,6 +1,7 @@
 /*
 SCRIPT PURPOSE:
 	Bulk inserting the data from the csv files found in the source_crm and source_erp folders of \datasets.
+	This script makes use of a Procedure.
 */
 
 CREATE OR ALTER PROCEDURE bronze.load_bronze AS

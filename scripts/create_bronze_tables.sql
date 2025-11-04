@@ -1,22 +1,10 @@
 /*
 SCRIPT PURPOSE:
-	
+	Creation of the Database and the Bronze, Silver, and Gold Schemas.
 */
-USE master
-
---Creating the Database and the bronze, silver, and gold Schemas
-CREATE DATABASE CRM_ERP_DataWarehouse
 
 USE CRM_ERP_DataWarehouse
 
-CREATE SCHEMA bronze;
-GO
-CREATE SCHEMA silver;
-GO
-CREATE SCHEMA gold;
-GO
-
---Creating tables for the bronze Schema
 CREATE TABLE bronze.crm_cust_info(
 	cst_id INT,
 	cst_key NVARCHAR(11) NOT NULL,
@@ -66,4 +54,3 @@ CREATE TABLE bronze.erp_px_cat_g1v2(
 	SUBCAT VARCHAR(20),
 	MAINTENANCE VARCHAR(3),
 );
-
