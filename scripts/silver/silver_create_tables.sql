@@ -10,18 +10,19 @@ CREATE TABLE silver.crm_cust_info(
 	cst_key NVARCHAR(11) NOT NULL,
 	cst_firstname NVARCHAR(25),
 	cst_lastname NVARCHAR(25),
-	cst_marital_status CHAR(1),
-	cst_gender CHAR(1),
+	cst_marital_status NVARCHAR(7),
+	cst_gender NVARCHAR(6),
 	cst_create_date DATE,
 	dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
 
 CREATE TABLE silver.crm_prd_info(
 	prd_id INT,
+	cat_id CHAR(5),
 	prd_key NVARCHAR(16),
 	prd_nm NVARCHAR(40),
 	prd_cost INT,
-	prd_line NVARCHAR(2),
+	prd_line NVARCHAR(11),
 	prd_start_date DATE,
 	prd_end_date DATE,
 	dwh_create_date DATETIME2 DEFAULT GETDATE()
