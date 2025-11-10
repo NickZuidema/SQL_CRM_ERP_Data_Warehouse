@@ -434,7 +434,34 @@ FROM [bronze].[erp_px_cat_g1v2]
 GROUP BY CID
 HAVING COUNT(*) > 1 OR CID IS NULL
 
-SELECT * FROM [bronze].[erp_px_cat_g1v2]
+--Checking for white spaces
+SELECT 
+	* 
+FROM [bronze].[erp_px_cat_g1v2]
+WHERE cat != TRIM(cat)
+
+--Checking for data quality
+SELECT DISTINCT
+	MAINTENANCE
+FROM [bronze].[erp_px_cat_g1v2]
+
+------------------------------------------------------------------------------------------------------
+--Data Insertion into [silver].[erp_px_cat_g1v2]
+INSERT INTO [silver].[erp_px_cat_g1v2](
+	cid,
+	cat,
+	subcat,
+	maintenance
+)
+
+--Cleaned [bronze].[erp_px_cat_g1v2] Dealt with:
+--	Nothing; data was clean
+SELECT
+	cid,
+	cat,
+	subcat,
+	maintenance
+FROM [bronze].[erp_px_cat_g1v2]
 --=========================================================================================================
 
 
