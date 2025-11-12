@@ -1,3 +1,9 @@
+/*
+SCRIPT PURPOSE:
+	Queries that result in data from the Bronze tables which are cleaned and ready to be inserted to
+	the Silver tables.
+*/
+
 USE CRM_ERP_DataWarehouse
 
 SELECT * FROM [bronze].[crm_cust_info]

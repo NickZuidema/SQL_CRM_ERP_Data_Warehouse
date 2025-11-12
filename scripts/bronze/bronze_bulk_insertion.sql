@@ -4,6 +4,8 @@ SCRIPT PURPOSE:
 	This script makes use of a Procedure.
 */
 
+EXEC bronze.load_bronze
+
 CREATE OR ALTER PROCEDURE bronze.load_bronze AS
 BEGIN
 	DECLARE @total_start_time DATETIME, @total_end_time DATETIME, @start_time DATETIME, @end_time DATETIME;
@@ -129,4 +131,3 @@ BEGIN
 	END CATCH
 END
 
-EXEC bronze.load_bronze

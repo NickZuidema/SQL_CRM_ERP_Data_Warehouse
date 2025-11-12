@@ -1,3 +1,8 @@
+/*
+SCRIPT PURPOSE:
+	Checking the quality of the inserted data within the Silver tables.
+*/
+
 --Checking [silver].[crm_cust_info]
 --Checking Primary key
 SELECT 
