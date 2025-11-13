@@ -42,22 +42,22 @@ CREATE TABLE silver.crm_sales_details(
 );
 
 CREATE TABLE silver.erp_cust_az12(
-	CID CHAR(13),
-	BDATE DATE,
-	GEN NVARCHAR(6),
+	cid CHAR(13),
+	bdate DATE,
+	gen NVARCHAR(6),
 	dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
 
 CREATE TABLE silver.erp_loc_a101(
-	CID CHAR(11),
-	CNTRY VARCHAR(20),
+	cid CHAR(11),
+	cntry VARCHAR(20),
 	dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
 
 CREATE TABLE silver.erp_px_cat_g1v2(
-	CID CHAR(5),
-	CAT VARCHAR(11),
-	SUBCAT VARCHAR(20),
-	MAINTENANCE VARCHAR(3),
+	cid CHAR(5),
+	cat VARCHAR(11),
+	subcat VARCHAR(20),
+	maintenance VARCHAR(3),
 	dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
