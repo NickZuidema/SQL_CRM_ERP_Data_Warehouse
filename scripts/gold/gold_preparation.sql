@@ -1,5 +1,5 @@
 --===================================================
---For Customer view
+--For Customer view (Dimension)
 --===================================================
 --Checking for cst_id duplicates; none found
 SELECT 
@@ -62,9 +62,11 @@ SELECT
 	LEFT JOIN silver.erp_loc_a101 la
 		on ci.cst_key=la.CID
 
+
 --===================================================
---For Product view
+--For Product view (Dimension)
 --===================================================
+--Only selecting non-historical end-dates
 SELECT 
 	pi.prd_id,
 	pi.cat_id,
@@ -112,6 +114,7 @@ SELECT * FROM silver.erp_px_cat_g1v2
 
 --Query for View
 SELECT 
+	ROW_NUMBER() OVER(ORDER BY pi.prd_start_date, pi.prd_key) [product_key],
 	pi.prd_id [product_id],
 	pi.prd_key [product_number],
 	pi.prd_nm [product_name],
@@ -125,4 +128,26 @@ SELECT
 FROM silver.crm_prd_info pi
 LEFT JOIN silver.erp_px_cat_g1v2 pc
 	ON pi.cat_id=pc.cid
-WHERE pi.prd_end_date IS NULL --Only included NULL end dates, which means we're only including the latest data; no historical data
+WHERE pi.prd_end_date IS NULL 
+
+
+--===================================================
+--For Sales view (Fact)
+--===================================================
+--Query for View
+SELECT 
+	sd.sls_ord_num [order_number],
+	pr.product_key,
+	cu.customer_key,
+	sls_order_dt [order_date],
+	sls_ship_dt [shipping_date],
+	sls_due_dt [due_date],
+	sls_sales [sales_amount],
+	sls_quantity [quantity],
+	sls_price [price]
+FROM silver.crm_sales_details sd
+LEFT JOIN gold.dim_products pr
+	ON sd.sls_prd_key=pr.product_number
+LEFT JOIN gold.dim_customers cu
+	ON sd.sls_cust_id=cu.customer_id
+
