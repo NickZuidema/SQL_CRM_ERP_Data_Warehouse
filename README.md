@@ -20,6 +20,7 @@ This project's architecture follows the Medallion Architecture, utilizing **🥉
 ## 📚 References
 
 Huge thanks to Data with Baraa for the guidance on this project. Below are his links:
+
 **[YouTube](http://bit.ly/3GiCVUE)**
 
 **[LinkedIn](https://linkedin.com/in/baraa-khatib-salkini)**
