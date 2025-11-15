@@ -1,3 +1,8 @@
+/*
+SCRIPT PURPOSE:
+	Quality check on all Gold views.
+*/
+
 --Customers
 SELECT * FROM gold.dim_customers
 
@@ -22,3 +27,10 @@ LEFT JOIN gold.dim_customers c
 LEFT JOIN gold.dim_products p
 	ON p.product_key=f.product_key
 WHERE c.customer_key IS NULL
+
+
+--Everything
+SELECT * FROM gold.dim_customers
+SELECT * FROM gold.dim_products
+SELECT * FROM gold.fact_sales
+

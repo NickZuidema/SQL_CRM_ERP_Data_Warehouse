@@ -1,3 +1,8 @@
+/*
+SCRIPT PURPOSE:
+	Creation of all Gold views. Each CREATE VIEW query must be run separately by highlighting what 
+	is to be used.
+*/
 --Customers (Dimension)
 CREATE VIEW gold.dim_customers AS(
 	SELECT

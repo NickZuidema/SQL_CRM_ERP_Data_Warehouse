@@ -1,3 +1,8 @@
+/*
+SCRIPT PURPOSE:
+	Creating queries from the Silver tables that reflect what is needed in the Gold views.
+*/
+
 --===================================================
 --For Customer view (Dimension)
 --===================================================
