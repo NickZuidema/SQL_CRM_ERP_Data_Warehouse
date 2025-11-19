@@ -220,3 +220,100 @@ INNER JOIN gold.dim_customers c
 	ON c.customer_key=s.customer_key
 GROUP BY c.country
 ORDER BY 1 DESC
+
+
+--============================================
+--Ranking Analysis
+--============================================
+SELECT 
+	*
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_SCHEMA = 'gold'
+
+SELECT * FROM gold.dim_customers
+SELECT * FROM gold.dim_products
+SELECT * FROM gold.fact_sales
+
+--Which 5 products generate the highest revenue?
+SELECT TOP 5
+	p.product_name,
+	SUM(sales_amount) [total_revenue]
+FROM gold.fact_sales s
+INNER JOIN gold.dim_products p
+	ON s.product_key=p.product_key
+GROUP BY p.product_name
+ORDER BY total_revenue DESC
+
+SELECT *
+FROM(
+	SELECT 
+		p.product_name,
+		SUM(sales_amount) [total_revenue],
+		ROW_NUMBER() OVER(ORDER BY SUM(sales_amount) DESC) [ranking]
+	FROM gold.fact_sales s
+	INNER JOIN gold.dim_products p
+		ON s.product_key=p.product_key
+	GROUP BY p.product_name
+)t
+WHERE ranking <= 5
+
+--What are the 5 worst-performing products in terms of sales?
+SELECT TOP 5
+	p.product_name,
+	SUM(sales_amount) [total_revenue]
+FROM gold.fact_sales s
+INNER JOIN gold.dim_products p
+	ON s.product_key=p.product_key
+GROUP BY p.product_name
+ORDER BY total_revenue ASC
+
+--Find the top 10 customers who ave generated the highest revenue
+SELECT 
+	t.customer_key,
+	c.first_name,
+	c.last_name,
+	t.total_revenue,
+	t.ranking
+FROM(
+	SELECT
+		customer_key,
+		SUM(sales_amount) [total_revenue],
+		ROW_NUMBER() OVER(ORDER BY SUM(sales_amount) DESC) [ranking]
+	FROM gold.fact_sales 
+	GROUP BY customer_key
+)t
+INNER JOIN gold.dim_customers c
+	on t.customer_key=c.customer_key
+WHERE ranking <= 10
+ORDER BY ranking ASC
+
+--Simpler
+SELECT TOP 10
+	s.customer_key,
+	c.first_name,
+	c.last_name,
+	SUM(sales_amount) [total_revenue]
+FROM gold.fact_sales s
+INNER JOIN gold.dim_customers c
+	ON s.customer_key=c.customer_key
+GROUP BY
+	s.customer_key,
+	c.first_name,
+	c.last_name
+ORDER BY total_revenue DESC
+
+
+--The 3 customers with the fewest orders placed
+SELECT TOP 3
+	s.customer_key,
+	c.first_name,
+	c.last_name,
+	COUNT(1) [total_orders]
+FROM gold.fact_sales s
+INNER JOIN gold.dim_customers c
+	ON s.customer_key=c.customer_key
+GROUP BY
+	s.customer_key,
+	c.first_name,
+	c.last_name
+ORDER BY total_orders ASC
